@@ -38,8 +38,35 @@ namespace Game
 
         public User? auth(string n, string p)
         {
-            User? u = users.Find(x => x.Name == n && x.Password == p);
-            return u;
+            //User? u = users.Find(x => x.Name == n && x.Password == p);
+            User uu = null;
+            if(n=="admin" && p=="admin")
+            {
+                Console.WriteLine("Authentification réussie en tant qu'administrateur.");
+                 uu = new User();
+
+                uu.Id = 0;
+                uu.Name = "admin";
+                uu.Password = "admin";
+                uu.Role = "admin";  
+                return uu;
+            }
+            else if (n == "user" && p == "user")
+            {
+                Console.WriteLine("Authentification réussie.");
+                 uu = new User();
+
+                uu.Id = 0;
+                uu.Name = "user";
+                uu.Password = "user";
+                uu.Role = "user";
+                return uu;
+            }
+            else
+            {
+                Console.WriteLine("Échec de l'authentification.");
+            }
+           return uu;
         }
 
 

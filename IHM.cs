@@ -8,8 +8,12 @@ namespace Game
 {
     internal class IHM
     {
-         string choix = "";
+        string choix = "3";
         UserManager um;
+
+        bool isconnected = false;
+
+        User ut;
 
         public IHM()
         {
@@ -22,6 +26,8 @@ namespace Game
         }
 
         public string Choix { get => choix; set => choix = value; }
+        public bool Isconnected { get => isconnected; set => isconnected = value; }
+        internal User Ut { get => ut; set => ut = value; }
 
         public void Menu()
         {
@@ -39,13 +45,13 @@ namespace Game
         public void Menu2()
         {
             
-            Console.WriteLine("3- Authentification");
-          
+            Console.WriteLine("Authentification");
+            
             
         }
         public void start()
         {
-            Choix = Console.ReadLine()!;
+           // Choix =  Console.ReadLine()!;
             switch (Choix)
             {
                 case "1":
@@ -71,6 +77,17 @@ namespace Game
                     break;
                 case "3":
                     Console.WriteLine("Authentifier un utilisateur");
+                    Console.Write("Nom: ");
+                    string n = Console.ReadLine()!;
+                    Console.Write("Mot de passe: ");
+                    string ps = Console.ReadLine()!;
+                    User? user = um.auth(n, ps);
+                    if (user != null)
+                    { 
+                        Isconnected = true;
+                        Ut = user;
+                    }
+
                     break;
                 case "4":
                     Console.WriteLine("Chercher un utilisateur");
@@ -81,19 +98,7 @@ namespace Game
                 case "6":
                     Console.WriteLine("Jeu");
                     Partie p=new Partie();
-                    JeuMB j=new JeuMB();
-                    j.genererSecret();
-                    Console.WriteLine("Le secret a été généré. Devinez le nombre à 4 chiffres avec des chiffres uniques.");
-                    int essais = 0;
-                    string resultat = "";
-                    while (resultat!="4M0B")
-                    { 
-                        Console.Write("Entrez votre proposition (4 chiffres uniques) : ");
-                        string prop = Console.ReadLine()!;
-                        essais++;
-                         resultat = j.comparer(prop);
-                        Console.WriteLine($"Résultat : {resultat}");
-                    }
+                    p.demarer();
                     break;
 
                 default:
@@ -102,6 +107,7 @@ namespace Game
 
             }
             Console.Write("Choix : ");
+            Choix = Console.ReadLine()!;
         }
         }
 }
