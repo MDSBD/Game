@@ -30,6 +30,9 @@ namespace Game
             Console.WriteLine("3- Authentifier un utilisateur");
             Console.WriteLine("4- Chercher un utilisateur");
             Console.WriteLine("5- Quitter");
+
+            Console.WriteLine("6- Jeu");
+
             Console.Write("Choix : ");
         }
 
@@ -75,6 +78,24 @@ namespace Game
                 case "5":
                     Console.WriteLine("Quitter");
                     break;
+                case "6":
+                    Console.WriteLine("Jeu");
+                    Partie p=new Partie();
+                    JeuMB j=new JeuMB();
+                    j.genererSecret();
+                    Console.WriteLine("Le secret a été généré. Devinez le nombre à 4 chiffres avec des chiffres uniques.");
+                    int essais = 0;
+                    string resultat = "";
+                    while (resultat!="4M0B")
+                    { 
+                        Console.Write("Entrez votre proposition (4 chiffres uniques) : ");
+                        string prop = Console.ReadLine()!;
+                        essais++;
+                         resultat = j.comparer(prop);
+                        Console.WriteLine($"Résultat : {resultat}");
+                    }
+                    break;
+
                 default:
                     Console.WriteLine("Choix invalide");
                     break;
